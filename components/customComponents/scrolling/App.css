@@ -1,0 +1,18 @@
+@keyframes vertical-marquee {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.scrolling-box {
+  position: relative;
+  overflow: hidden;
+}
+
+.scrolling-content {
+  position: absolute;
+  animation: vertical-marquee 10s linear infinite;
+}
