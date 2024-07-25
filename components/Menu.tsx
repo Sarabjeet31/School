@@ -144,7 +144,7 @@ export default function Menu() {
     setIsOpen(!isOpen);
   };
 
-  const toggleDropdown = (section) => {
+  const toggleDropdown = (section: string) => {
     if (activeDropdown === section) {
       setActiveDropdown("");
     } else {
@@ -175,15 +175,15 @@ export default function Menu() {
               <NavigationMenuTrigger onClick={() => toggleDropdown("about")} className="text-base">About</NavigationMenuTrigger>
               <NavigationMenuContent className={`${activeDropdown === "about" ? "block" : "hidden"} md:block`}>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <ListItem href="/frmPrincipalMsg" title="Principle Message">
+                  <ListItem ref="/frmPrincipalMsg" title="Principle Message">
                   </ListItem>
-                  <ListItem href="/docs/installation" title="Public Disclosure">
+                  <ListItem ref="/docs/installation" title="Public Disclosure">
                   </ListItem>
-                  <ListItem href="/SMC" title="SMC">
+                  <ListItem ref="/SMC" title="SMC">
                   </ListItem>
-                  <ListItem href="/admission" title="Administration">
+                  <ListItem ref="/admission" title="Administration">
                   </ListItem>
-                  <ListItem href="/about" title="About Us">
+                  <ListItem ref="/about" title="About Us">
                   </ListItem>
                 </ul>
               </NavigationMenuContent>
@@ -236,7 +236,11 @@ export default function Menu() {
   );
 }
 
-const ListItem = React.forwardRef(({ className, title, children, ...props }, ref) => {
+interface ListItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  title: string;
+}
+
+const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(({ className, title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -248,7 +252,7 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
+          <div className="text-base md:text-lg font-medium leading-none">{title}</div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
@@ -257,4 +261,5 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
     </li>
   );
 });
+
 ListItem.displayName = "ListItem";
