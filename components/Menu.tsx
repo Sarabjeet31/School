@@ -49,34 +49,29 @@ const componentsInfrastucture = [
 ];
 const components = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: "Principle Message",
+    href: "/frmPrincipalMsg",
     description: "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
-    title: "Hover Card",
+    title: "Public Disclosure",
     href: "/docs/primitives/hover-card",
     description: "For sighted users to preview content available behind a link.",
   },
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
+    title: "SMC",
+    href: "/SMC",
     description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
+    title: "Administration",
+    href: "/admission",
     description: "Visually or semantically separates content.",
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
+    title: "About Us",
+    href: "/about",
     description: "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
 ];
 const componentStudent = [
@@ -175,16 +170,10 @@ export default function Menu() {
               <NavigationMenuTrigger onClick={() => toggleDropdown("about")} className="text-base">About</NavigationMenuTrigger>
               <NavigationMenuContent className={`${activeDropdown === "about" ? "block" : "hidden"} md:block`}>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <ListItem ref="/frmPrincipalMsg" title="Principle Message">
-                  </ListItem>
-                  <ListItem ref="/docs/installation" title="Public Disclosure">
-                  </ListItem>
-                  <ListItem ref="/SMC" title="SMC">
-                  </ListItem>
-                  <ListItem ref="/admission" title="Administration">
-                  </ListItem>
-                  <ListItem ref="/about" title="About Us">
-                  </ListItem>
+                  {components.map((component) => (
+                    <ListItem key={component.title} title={component.title} href={component.href}>
+                    </ListItem>
+                  ))}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -193,7 +182,7 @@ export default function Menu() {
               <NavigationMenuContent className={`${activeDropdown === "infrastructure" ? "block" : "hidden"} md:block`}>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {componentsInfrastucture.map((component) => (
-                    <ListItem key={component.title} title={component.title} href={component.href}>
+                    <ListItem key={component.title} title={component.title} href={component.href} className="text-sm">
                     </ListItem>
                   ))}
                 </ul>
@@ -235,12 +224,12 @@ export default function Menu() {
     </NavigationMenu>
   );
 }
-
 interface ListItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   title: string;
+  children?: React.ReactNode;
 }
 
-const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(({ className, title, children, ...props }, ref) => {
+export const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(({ className, title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -252,7 +241,7 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(({ className
           )}
           {...props}
         >
-          <div className="text-base md:text-lg font-medium leading-none">{title}</div>
+          <div className="text-base text-gray-700 font-medium leading-none">{title}</div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
